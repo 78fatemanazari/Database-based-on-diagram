@@ -88,7 +88,7 @@ Clone this repository to your desired folder by running the following commands i
 ```sh
   cd your-prefered-folder-name
   
-  git clone git@github.com:jcmunav63/vet_clinic_db.git
+  git clone git@github.com:78fatemanazari/Database-based-on-diagram.git
 ```
 
 ### Install

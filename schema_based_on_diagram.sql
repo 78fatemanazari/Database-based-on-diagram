@@ -1,6 +1,5 @@
 BEGIN;
 
-
 DROP TABLE IF EXISTS public.patients;
 
 CREATE TABLE IF NOT EXISTS public.patients
@@ -85,3 +84,51 @@ WITH (
     OIDS = FALSE
 );
 
+ALTER TABLE IF EXISTS public.medical_histories
+    ADD CONSTRAINT fk_patient_id FOREIGN KEY (patients_id)
+    REFERENCES public.patients (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.invoices
+    ADD CONSTRAINT fk_medical_history_id FOREIGN KEY (medical_history_id)
+    REFERENCES public.medical_histories (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.invoice_items
+    ADD CONSTRAINT fk_invoice_id FOREIGN KEY (invoice_id)
+    REFERENCES public.invoices (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.invoice_items
+    ADD CONSTRAINT fk_treatment_id FOREIGN KEY (treatment_id)
+    REFERENCES public.treatments (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.medical_histories_treatments
+    ADD CONSTRAINT fk_medical_history_id FOREIGN KEY (medical_history_id)
+    REFERENCES public.medical_histories (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public.medical_histories_treatments
+    ADD CONSTRAINT fk_treatment_id FOREIGN KEY (treatment_id)
+    REFERENCES public.treatments (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+END;
